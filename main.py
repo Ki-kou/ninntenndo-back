@@ -35,24 +35,13 @@ def callback():
 
 
     # handle webhook body
-　# 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
+
 try:
     handler.handle(body, signature)
-　# 署名検証で失敗した場合、例外を出す。
+
 except InvalidSignatureError:
     abort(400)
-　# handleの処理を終えればOK
 return 'OK'
-
-## 2 ##
-###############################################
-#LINEのメッセージの取得と返信内容の設定(オウム返し)
-###############################################
-
-#LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
-#def以下の関数を実行します。
-#reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。
-#第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
 
 
 @handler.add(MessageEvent, message=TextMessage)
