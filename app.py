@@ -8,6 +8,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from data import soft_name_list
 
 import os
 app = Flask(__name__)
@@ -38,6 +39,21 @@ def handle_message(event):
         TextSendMessage(text=event.message.text)
     )
 
+def handle_message(event):
+    for list in soft_name_list:
+        if event.message.text == list:
+            line_bot_api.reply_message(event.reply_token,
+        TextSendMessage(text="セール中です")
+    )
+        else:
+            line_bot_api.reply_message(event.reply_token,
+        TextSendMessage(text="セール中ではありません")
+    )
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text)
+    )
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
