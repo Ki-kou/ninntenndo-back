@@ -18,7 +18,7 @@ from selenium.webdriver.chrome.options import Options
 
 options = Options()
 options.add_argument('--headless')
-driver = webdriver.Chrome('/usr/local/bin/chromedriver',options=options)
+driver = webdriver.Chrome('/app/.apt/usr/bin/google-chrome',options=options)
 driver.get('https://www.nintendo.co.jp/software/campaign/index.html')
 
 soft_name_list = []
