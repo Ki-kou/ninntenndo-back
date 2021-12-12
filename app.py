@@ -55,26 +55,21 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 #オウム返し用のメッセージイベント
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text)
-    )
+# def handle_message(event):
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=event.message.text)
+#     )
 
 def handle_message(event):
-    for list in soft_name_list:
-        if event.message.text == list:
-            line_bot_api.reply_message(event.reply_token,
+    
+    if event.message.text in soft_name_list:
+        line_bot_api.reply_message(event.reply_token,
         TextSendMessage(text="セール中です")
     )
-        else:
-            line_bot_api.reply_message(event.reply_token,
+    else:
+        line_bot_api.reply_message(event.reply_token,
         TextSendMessage(text="セール中ではありません")
-    )
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text)
     )
 
 if __name__ == "__main__":
