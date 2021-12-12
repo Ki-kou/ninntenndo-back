@@ -9,30 +9,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-
 import os
-import time
-from selenium import webdriver
-from selenium.common.exceptions import ElementNotInteractableException
-from selenium.webdriver.chrome.options import Options
-
-options = Options()
-options.add_argument('--headless')
-driver = webdriver.Chrome('/app/.apt/usr/bin/google-chrome',options=options)
-driver.get('https://www.nintendo.co.jp/software/campaign/index.html')
-
-soft_name_list = []
-while True:
-    for element in driver.find_elements_by_class_name("nc3-c-softCard__name"):
-        soft_name_list.append(element.text)
-    try:
-        next_page = driver.find_element_by_class_name("nc3-c-pagination__next")
-        next_page.click()
-        time.sleep(2)
-    except ElementNotInteractableException:
-        driver.quit()
-        break
-
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
 YOUR_CHANNEL_SECRET = os.environ['CHANNEL_SECRET']
@@ -55,22 +32,12 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 #オウム返し用のメッセージイベント
-# def handle_message(event):
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text=event.message.text)
-#     )
-
 def handle_message(event):
-    
-    if event.message.text in soft_name_list:
-        line_bot_api.reply_message(event.reply_token,
-        TextSendMessage(text="セール中です")
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="kou")
     )
-    else:
-        line_bot_api.reply_message(event.reply_token,
-        TextSendMessage(text="セール中ではありません")
-    )
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
