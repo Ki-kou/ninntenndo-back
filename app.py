@@ -18,12 +18,12 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 conn.set_client_encoding('utf-8') 
 cursor = conn.cursor()
-sql_sentence = "select count(*) from " + "data" + ";"
-cursor.execute(sql_sentence)
+cursor.execute('SELECT * FROM data')
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 results = cursor.fetchall() 
+print(results)
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
