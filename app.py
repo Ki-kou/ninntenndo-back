@@ -22,8 +22,7 @@ cursor.execute('SELECT * FROM data')
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-results = cursor.fetchall() 
-print(results)
+results = cursor.fetchall()["title"]
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -50,14 +49,7 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text="セール中ではありません")
     )
-
-
-        
-
-
     
-
-
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
