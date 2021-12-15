@@ -22,7 +22,8 @@ cursor.execute('SELECT * FROM data')
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-results = cursor.fetchall()["title"]
+results = cursor.fetchall()
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
