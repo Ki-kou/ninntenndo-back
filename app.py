@@ -24,7 +24,7 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 with psycopg2.connect(DATABASE_URL) as conn:
     with conn.cursor() as curs:
-        curs.execute("SELECT title FROM data")
+        curs.execute("SELECT * FROM data")
         results = curs.fetchall()
 
 
@@ -42,7 +42,7 @@ def callback():
 
 
 @handler.add(MessageEvent, message=TextMessage)
-#オウム返し用のメッセージイベント
+# 返信するメッセージ
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
