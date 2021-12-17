@@ -44,10 +44,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 # 返信するメッセージ
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=results))
-
     if event.message.text in results:
        line_bot_api.reply_message(
        event.reply_token,
