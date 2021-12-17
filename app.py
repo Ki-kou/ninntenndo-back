@@ -18,6 +18,7 @@ YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
 YOUR_CHANNEL_SECRET = os.environ['CHANNEL_SECRET']
 DATABASE_URL = os.environ['DATABASE_URL']
 engine = create_engine('{DATABASE_URL}')
+df = pd.read_sql(sql='SELECT * FROM data;', con=engine)
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # conn.set_client_encoding('utf-8') 
 # cursor = conn.cursor()
@@ -28,7 +29,7 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 #     with conn.cursor() as curs:
 #         curs.execute("SELECT * FROM data")
 #         results = curs.fetchall()
-df = pd.read_sql(sql='SELECT * FROM data;', con=engine)
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -48,7 +49,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=results))
+        TextSendMessage(text=df[0]))
 
     # if event.message.text in results:
     #     line_bot_api.reply_message(
