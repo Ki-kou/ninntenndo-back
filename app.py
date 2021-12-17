@@ -23,7 +23,6 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 results = cursor.fetchall()
-print(results)
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -41,16 +40,20 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 #オウム返し用のメッセージイベント
 def handle_message(event):
-    if event.message.text in results:
-        line_bot_api.reply_message(
+    line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="セール中です")
-    )
-    else:
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="セール中ではありません")
-    )
+        TextSendMessage(text=results))
+
+    # if event.message.text in results:
+    #     line_bot_api.reply_message(
+    #     event.reply_token,
+    #     TextSendMessage(text="セール中です")
+    # )
+    # else:
+    #     line_bot_api.reply_message(
+    #     event.reply_token,
+    #     TextSendMessage(text="セール中ではありません")
+    # )
     
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
