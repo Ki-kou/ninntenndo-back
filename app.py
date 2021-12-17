@@ -23,7 +23,7 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 results = cursor.fetchall()
-print("results" = results)
+print(results)
 
 @app.route("/callback", methods=['POST'])
 def callback():
