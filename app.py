@@ -16,8 +16,8 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
 YOUR_CHANNEL_SECRET = os.environ['CHANNEL_SECRET']
-DATABASE_URL = os.environ['DATABASE_URL']
-engine = create_engine('{DATABASE_URL}')
+# DATABASE_URL = os.environ['DATABASE_URL']
+engine = create_engine('DATABASE_URL')
 df = pd.read_sql(sql='SELECT * FROM data;', con=engine)
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # conn.set_client_encoding('utf-8') 
