@@ -10,25 +10,22 @@ from linebot.models import (
 )
 import psycopg2
 import os
-import pandas as pd
-from sqlalchemy import create_engine
 
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
 YOUR_CHANNEL_SECRET = os.environ['CHANNEL_SECRET']
 DATABASE_URL = os.environ['DATABASE_URL']
-engine = create_engine(DATABASE_URL)
-df = pd.read_sql(sql='SELECT * FROM data;', con=engine)
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-# conn.set_client_encoding('utf-8') 
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+conn.set_client_encoding('utf-8') 
 # cursor = conn.cursor()
 # cursor.execute('SELECT title FROM data ')
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
-# with psycopg2.connect(DATABASE_URL) as conn:
-#     with conn.cursor() as curs:
-#         curs.execute("SELECT * FROM data")
-#         results = curs.fetchall()
+with psycopg2.connect(DATABASE_URL) as conn:
+    with conn.cursor() as curs:
+        curs.execute("SELECT * FROM data")
+        results = curs.fetchall()
 
 
 @app.route("/callback", methods=['POST'])
@@ -49,7 +46,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=df[0]))
+        TextSendMessage(text=results))
 
     # if event.message.text in results:
     #     line_bot_api.reply_message(
