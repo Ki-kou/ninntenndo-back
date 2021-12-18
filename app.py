@@ -18,14 +18,14 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 conn.set_client_encoding('utf-8') 
-# cursor = conn.cursor()
-# cursor.execute('SELECT title FROM data ')
+
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 with psycopg2.connect(DATABASE_URL) as conn:
     with conn.cursor() as curs:
         curs.execute("SELECT * FROM data")
         results = curs.fetchall()
+        print(results)
 
 
 @app.route("/callback", methods=['POST'])
