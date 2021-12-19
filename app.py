@@ -10,7 +10,6 @@ from linebot.models import (
 )
 import psycopg2
 import os
-import pandas as pd 
 
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
@@ -25,7 +24,7 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 with psycopg2.connect(DATABASE_URL) as conn:
     with conn.cursor() as curs:
         curs.execute("SELECT * FROM data")
-        df_results = curs.fetchall()
+        results = curs.fetchall()
 
 
 @app.route("/callback", methods=['POST'])
@@ -47,7 +46,7 @@ def handle_message(event):
 
     line_bot_api.reply_message(
        event.reply_token,
-      TextSendMessage(text=df_results["title"][0])
+      TextSendMessage(text=results)
     )
     # if event.message.text in df_results["title"]:
     #    line_bot_api.reply_message(
