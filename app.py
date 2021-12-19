@@ -10,6 +10,7 @@ from linebot.models import (
 )
 import psycopg2
 import os
+import pandas as pd 
 
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ['CHANNEL_ACCESS_TOKEN']
@@ -17,15 +18,14 @@ YOUR_CHANNEL_SECRET = os.environ['CHANNEL_SECRET']
 DATABASE_URL = os.environ['DATABASE_URL']
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-conn.set_client_encoding('utf-8') 
+conn.set_client_encoding('utf-8')
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 with psycopg2.connect(DATABASE_URL) as conn:
     with conn.cursor() as curs:
         curs.execute("SELECT * FROM data")
-        results = curs.fetchall()
-        print(results)
+        df_results = curs.fetchall()
 
 
 @app.route("/callback", methods=['POST'])
@@ -44,7 +44,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 # 返信するメッセージ
 def handle_message(event):
-    if event.message.text in results:
+    if event.message.text in df_results["title"]:
        line_bot_api.reply_message(
        event.reply_token,
     TextSendMessage(text="セール中です")
