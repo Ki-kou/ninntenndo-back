@@ -44,16 +44,21 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 # 返信するメッセージ
 def handle_message(event):
-    if event.message.text in df_results["title"]:
-       line_bot_api.reply_message(
+
+    line_bot_api.reply_message(
        event.reply_token,
-    TextSendMessage(text="セール中です")
+      TextSendMessage(text=df_results["title"][0])
     )
-    else:
-       line_bot_api.reply_message(
-       event.reply_token,
-      TextSendMessage(text="セール中ではありません")
-    )
+    # if event.message.text in df_results["title"]:
+    #    line_bot_api.reply_message(
+    #    event.reply_token,
+    # TextSendMessage(text="セール中です")
+    # )
+    # else:
+    #    line_bot_api.reply_message(
+    #    event.reply_token,
+    #   TextSendMessage(text="セール中ではありません")
+    # )
     
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
