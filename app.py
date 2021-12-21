@@ -25,7 +25,7 @@ with psycopg2.connect(DATABASE_URL) as conn:
     with conn.cursor() as curs:
         curs.execute("SELECT * FROM data")
         results = curs.fetchall()
-results = ["test"]
+test_results = ["test"]
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -48,7 +48,7 @@ def handle_message(event):
     #    event.reply_token,
     #   TextSendMessage(text=results)
     # )
-    if event.message.text in results:
+    if event.message.text in test_results:
        line_bot_api.reply_message(
        event.reply_token,
     TextSendMessage(text="セール中です")
