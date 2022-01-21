@@ -10,3 +10,7 @@ python3,postgresql,heroku,flask
 任天堂のセールのソフトは一日に一回、更新されるため、herokuにデプロイしたninリポジトリ内のmain.pyファイルを1日に一回、定期的に実行するようにしている。
 # 改善点
 現在の使用では、スクレイピングしたソフトそのままの名前をline-chat-botで送る必要がある。 (例)○ポケットモンスター ブリリアントダイヤモンド　×ダイパリメイク
+
+
+
+![image](https://user-images.githubusercontent.com/78373206/150530521-7327e65d-8d19-4fff-9e2e-4ffada03f6f9.png)
