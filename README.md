@@ -14,3 +14,5 @@ python3,postgresql,heroku,flask
 
 
 ![image](https://user-images.githubusercontent.com/78373206/150530521-7327e65d-8d19-4fff-9e2e-4ffada03f6f9.png)
+
+＊現在は、サーバーを停止しています。
